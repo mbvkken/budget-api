@@ -18,13 +18,14 @@ const connection = mysql.createConnection({
 //     console.log(results[0].ID);
 //   }
 // );
-//------------------------------------------------------
 
-// connection.promise().query( 'SELECT * FROM `book` WHERE `ID` = ?', [15])
-//   .then( ([rows]) => {
-//     console.log(rows);
-//   })
- 
+connection.promise().query( 'SELECT * FROM `book` WHERE `ID` = ?',
+   [15])
+  .then( ([rows]) => {
+    console.log(rows[0].ID);
+  })
+  // .catch(console.log)
+  // .then( () => con.end());
 
 
 
