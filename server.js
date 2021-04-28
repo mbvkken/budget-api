@@ -55,15 +55,15 @@ app.post('/session', async (req, res) => {
     const { epost, passord } = req.body;
 
     try {
-        const brukerPassord = await getUserByEpost(epost);
-
+        const bruker = await getUserByEpost(epost);
+// console.log(passord+' = '+bruker.ID);
         if(!bruker) {
             return res.status(401).send({ error: 'ukjent bruker' });
         }
         
         //console.log(bruker);
 
-        const isCorrectPassword = await bcrypt.compare(passord, brukerPassord);
+        const isCorrectPassword = await bcrypt.compare(passord, bruker.passord);
 
         if (!isCorrectPassword) {
             return res.status(401).send({ error: 'feil passord' });
