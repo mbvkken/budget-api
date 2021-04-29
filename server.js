@@ -94,14 +94,14 @@ app.get('/session', authenticate, (req, res) => {
 
 app.get('/budsjett/:epost', async (req, res) => {
     const { epost } = req.params;
-    const budsjett = await getBudgetsByEmail(epost);
-    res.send(budsjett);
+    const budsjetter = await getBudgetsByEmail(epost);
+    res.send(budsjetter);
   });
 
   app.post('/budsjett', async (req, res) => {
     const { tittel, epost } = req.body;
-    const newTweet = await createBudget(tittel, epost);
-    res.send(newTweet);
+    const newBudget = await createBudget(tittel, epost);
+    res.send(newBudget);
   });  
 
 app.listen(port, () => {
