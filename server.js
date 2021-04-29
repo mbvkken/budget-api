@@ -9,7 +9,11 @@ const {
     createUser,
     getUserByEpost
  } = require('./services/database-brukere');
-
+ const { 
+    getBudgetsByEmail,
+    createBudget,
+    createCategory
+ } = require('./services/database-budsjett');
 const port = process.env.PORT || '3001';
 const secret = 'somethingverysecret1234'
 
@@ -88,6 +92,17 @@ app.get('/session', authenticate, (req, res) => {
    
 })
 
+app.get('/budsjett/:epost', async (req, res) => {
+    const { epost } = req.params;
+    const budsjett = await getBudgetsByEmail(epost);
+    res.send(budsjett);
+  });
+
+  app.post('/budsjett', async (req, res) => {
+    const { tittel, epost } = req.body;
+    const newTweet = await createBudget(tittel, epost);
+    res.send(newTweet);
+  });  
 
 app.listen(port, () => {
     console.log(`budget API listening on ${port}`)
