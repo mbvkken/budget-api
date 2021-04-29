@@ -3,17 +3,21 @@ const bodyParser = require('body-parser');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const cors = require('cors');
+
 const { authenticate } = require('./middleware');
+
 const { 
     getUsers,
     createUser,
     getUserByEpost
  } = require('./services/database-brukere');
+
  const { 
     getBudgetsByEmail,
     createBudget,
     createCategory
  } = require('./services/database-budsjett');
+
 const port = process.env.PORT || '3001';
 const secret = 'somethingverysecret1234'
 
@@ -98,11 +102,17 @@ app.get('/budsjett/:epost', async (req, res) => {
     res.send(budsjetter);
   });
 
-  app.post('/budsjett', async (req, res) => {
+app.post('/budsjett', async (req, res) => {
     const { tittel, epost } = req.body;
     const newBudget = await createBudget(tittel, epost);
     res.send(newBudget);
-  });  
+});  
+
+app.post('/budsjettpost', async (req, res) => {
+    const { tittel, sum, fast, budsjettID} = req.body;
+    const nyBudsjettpost = await lagNyBudsjettpost(tittel, sum, fast, budsjettID);
+    res.send(nyBudsjettpost);
+})
 
 app.listen(port, () => {
     console.log(`budget API listening on ${port}`)
