@@ -43,19 +43,6 @@ function getBudgetsByEmail(epost) {
     })
   }
 
-  function createCategory(tittel, epost, budsjett) {
-    return database.promise().query(`
-      INSERT INTO kategori
-        (tittel, epost, budsjett)
-      VALUES
-        (?, ?)
-    `, [
-      tittel,
-      epost
-    ])
-      .then(([result]) => result[0]);
-  }
-
   module.exports = {
     getBudgetsByEmail,
     createBudget,
