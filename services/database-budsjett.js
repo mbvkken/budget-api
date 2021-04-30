@@ -45,6 +45,5 @@ function getBudgetsByEmail(epost) {
 
   module.exports = {
     getBudgetsByEmail,
-    createBudget,
-    createCategory
+    createBudget
 };
