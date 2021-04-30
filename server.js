@@ -144,13 +144,13 @@ app.post('/kategori', async (req, res) => {
     res.send(nyKategori);
 })
 
-app.put('/kategori', async (req, res) => {
+app.put('/kategori/:kategoriID', async (req, res) => {
     const { nyTittel, kategoriID } = req.body;
     const kategori = await endreKategori(nyTittel, kategoriID);
     res.send(kategori);
 })
 
-app.delete('/kategori', async (req, res) => {
+app.delete('/kategori/:kategoriID', async (req, res) => {
     const { kategoriID } = req.body;
     await slettKategori(kategoriID);
     res.send(kategoriID);
