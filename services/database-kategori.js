@@ -30,10 +30,18 @@ function slettKategori(kategoriID) {
     ])
 }
 
-function endreKategori() {
+function endreKategori(nyTittel, kategoriID) {
     return database.promise().query(`
-        
-    `)
+        UPDATE kategori
+        SET 
+            tittel = ? 
+        WHERE   
+            ID = ?
+    `, [
+        nyTittel,
+        kategoriID
+    ])
+    .then(([result]) => result[0]);
 }
 
 module.exports = {

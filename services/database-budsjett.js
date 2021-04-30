@@ -43,7 +43,28 @@ function getBudgetsByEmail(epost) {
     })
   }
 
+  function deleteBudget(budsjettID) {
+    return database.promise().query(`
+      DELETE FROM budsjett WHERE ID = ?;
+    `, 
+    [budsjettID]
+    )
+  }
+
+  function updateBudget(budsjettID) {
+    return database.promise().query(`
+      UPDATE budsjett 
+      SET
+        tittel = ?
+      WHERE 
+        ID = ?
+    `, [budsjettID])
+    .then(([result]) => result[0]);
+  };
+
   module.exports = {
     getBudgetsByEmail,
-    createBudget
+    createBudget,
+    deleteBudget,
+    updateBudget
 };
