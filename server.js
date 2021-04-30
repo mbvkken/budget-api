@@ -14,7 +14,9 @@ const {
 
  const { 
     getBudgetsByEmail,
-    createBudget
+    createBudget,
+    deleteBudget,
+    updateBudget
  } = require('./services/database-budsjett');
 
  const {
@@ -114,6 +116,19 @@ app.post('/budsjett', async (req, res) => {
     const newBudget = await createBudget(tittel, epost);
     res.send(newBudget);
 });  
+
+app.delete('/budsjett/:budsjettid', async (req, res) => {
+    const { budsjettID } = req.params;
+    await deleteBudget(budsjettID);
+    res.send({budsjettID});
+})
+
+app.put('/budsjett/:budsjettid', async (req, res) => {
+    const { nyTittel, budsjettID } = req.body;
+    const nyttBudsjett = await updateBudget(nyTittel, budsjettID);
+    res.send(nyttBudsjett);
+})
+
 
 //budsjettpost
 app.post('/budsjettpost', async (req, res) => {
