@@ -41,6 +41,7 @@ function endreKategori(nyTittel, kategoriID) {
         nyTittel,
         kategoriID
     ])
+    .then(([result]) => result[0]);
 }
 
 module.exports = {
