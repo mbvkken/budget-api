@@ -22,7 +22,8 @@ const {
  const {
     lagNyKategori,
     slettKategori,
-    endreKategori
+    endreKategori,
+    getKatsByBudsjettID
  } = require('./services/database-kategori');
 
 const port = process.env.PORT || '3001';
@@ -143,6 +144,12 @@ app.post('/kategori', async (req, res) => {
     const nyKategori = await lagNyKategori(tittel, budsjettID);
     res.send(nyKategori);
 })
+
+app.get('/kategori/:budsjettID', async (req, res) => {
+    const { budsjettID } = req.params;
+    const kats = await getKatsByBudsjettID(budsjettID);
+    res.send(kats);
+  });
 
 app.put('/kategori/:kategoriID', async (req, res) => {
     const { nyTittel, kategoriID } = req.body;
