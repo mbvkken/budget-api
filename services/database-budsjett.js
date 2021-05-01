@@ -9,7 +9,7 @@ const database = mysql2.createPool({
 
 function getBudgetsByEmail(epost) {
     return database.promise().query(`
-    SELECT tittel 
+    SELECT * 
         FROM budsjett
         INNER JOIN budsjett_bruker ON budsjett.ID = budsjett_bruker.budsjettID
         WHERE budsjett_bruker.epost = ?

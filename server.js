@@ -117,13 +117,13 @@ app.post('/budsjett', async (req, res) => {
     res.send(newBudget);
 });  
 
-app.delete('/budsjett/:budsjettid', async (req, res) => {
+app.delete('/budsjett/:budsjettID', async (req, res) => {
     const { budsjettID } = req.params;
     await deleteBudget(budsjettID);
     res.send({budsjettID});
 })
 
-app.put('/budsjett/:budsjettid', async (req, res) => {
+app.put('/budsjett/:budsjettID', async (req, res) => {
     const { nyTittel, budsjettID } = req.body;
     const nyttBudsjett = await updateBudget(nyTittel, budsjettID);
     res.send(nyttBudsjett);
@@ -132,8 +132,8 @@ app.put('/budsjett/:budsjettid', async (req, res) => {
 
 //budsjettpost
 app.post('/budsjettpost', async (req, res) => {
-    const { tittel, sum, fast, budsjettID} = req.body;
-    const nyBudsjettpost = await lagNyBudsjettpost(tittel, sum, fast, budsjettID);
+    const { tittel, sum, fast, kategoriID} = req.body;
+    const nyBudsjettpost = await lagNyBudsjettpost(tittel, sum, fast, kategoriID);
     res.send(nyBudsjettpost);
 })
 

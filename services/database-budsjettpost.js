@@ -9,17 +9,17 @@ const database = mysql2.createPool({
 
 
 
-function lagNyBudsjettpost(tittel, sum, fast, budsjettID) {
+function lagNyBudsjettpost(tittel, sum, fast, kategoriID) {
     return database.promise().query(`
         INSERT INTO budsjettpost
-            (tittel, sum, fast, budsjettID)
+            (tittel, sum, fast, kategoriID)
         VALUES 
             (?, ?, ?, ?)
     `, [
         tittel,
         sum,
         fast,
-        budsjettID
+        kategoriID
     ])
 }
 
