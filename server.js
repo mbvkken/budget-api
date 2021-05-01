@@ -25,7 +25,13 @@ const {
     endreKategori,
     getKatsByBudsjettID
  } = require('./services/database-kategori');
-const { slettBudsjettpost } = require('./services/database-budsjettpost');
+
+const { 
+    slettBudsjettpost,
+    endreBudsjettpost,
+    lagNyBudsjettpost,
+    getBudsjettposter
+} = require('./services/database-budsjettpost');
 
 const port = process.env.PORT || '3001';
 const secret = 'somethingverysecret1234'
@@ -149,6 +155,12 @@ app.put('/budsjettpost/:budsjettpostID', async (req, res) => {
     const { nyTittel, nySum, nyFast, budsjettpostID } = req.body;
     const endretBudsjettpost = await endreBudsjettpost(nyTittel, nySum, nyFast, budsjettpostID);
     res.send(endretBudsjettpost);
+})
+
+app.get('/budsjettpost/:kategoriID', async (req, res) => {
+    const { kategoriID } = req.params;
+    const budsjettposterByKat = await getBudsjettposter(kategoriID);
+    res.send(budsjettposterByKat);
 })
 
 

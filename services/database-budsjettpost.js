@@ -21,6 +21,7 @@ function lagNyBudsjettpost(tittel, sum, fast, kategoriID) {
         fast,
         kategoriID
     ])
+    .then(([result]) => result[0]);
 }
 
 function slettBudsjettpost(budsjettpostID){
@@ -47,10 +48,23 @@ function endreBudsjettpost(tittel, sum, fast, budsjettpostID){
         fast,
         budsjettpostID
     ])
+    .then(([result]) => result[0]);
+}
+
+function getBudsjettposter(kategoriID){
+    return database.promise().query(`
+        SELECT *
+        FROM budsjettpost
+        WHERE kategoriID = ?
+    `, [
+        kategoriID
+    ])
+    .then(([result]) => result[0]);
 }
 
 module.exports = {
     lagNyBudsjettpost,
     slettBudsjettpost,
-    endreBudsjettpost
+    endreBudsjettpost,
+    getBudsjettposter
 }
