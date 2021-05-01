@@ -44,8 +44,18 @@ function endreKategori(nyTittel, kategoriID) {
     .then(([result]) => result[0]);
 }
 
+function getKatsByBudsjettID(budsjettID) {
+    return database.promise().query(`
+    SELECT * 
+        FROM kategori
+        
+        WHERE budsjettID = ?
+    `, [budsjettID])
+      .then((result) => result[0]);
+  }
 module.exports = {
     lagNyKategori,
     slettKategori,
-    endreKategori
+    endreKategori,
+    getKatsByBudsjettID
 }
