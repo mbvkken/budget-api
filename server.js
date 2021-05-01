@@ -25,6 +25,7 @@ const {
     endreKategori,
     getKatsByBudsjettID
  } = require('./services/database-kategori');
+const { slettBudsjettpost } = require('./services/database-budsjettpost');
 
 const port = process.env.PORT || '3001';
 const secret = 'somethingverysecret1234'
@@ -137,6 +138,19 @@ app.post('/budsjettpost', async (req, res) => {
     const nyBudsjettpost = await lagNyBudsjettpost(tittel, sum, fast, kategoriID);
     res.send(nyBudsjettpost);
 })
+
+app.delete('/budsjettpost/:budsjettpostID', async (req, res) => {
+    const { budsjettpostID } = req.body;
+    await slettBudsjettpost(budsjettpostID);
+    res.send(budsjettpostID);
+})
+
+app.put('/budsjettpost/:budsjettpostID', async (req, res) => {
+    const { nyTittel, nySum, nyFast, budsjettpostID } = req.body;
+    const endretBudsjettpost = await endreBudsjettpost(nyTittel, nySum, nyFast, budsjettpostID);
+    res.send(endretBudsjettpost);
+})
+
 
 // kategori
 app.post('/kategori', async (req, res) => {

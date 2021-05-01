@@ -23,6 +23,34 @@ function lagNyBudsjettpost(tittel, sum, fast, kategoriID) {
     ])
 }
 
+function slettBudsjettpost(budsjettpostID){
+    return database.promise().query(`
+        DELETE FROM budsjettpost
+        WHERE ID = ?
+    `, [
+        budsjettpostID
+    ])
+}
+
+function endreBudsjettpost(tittel, sum, fast, budsjettpostID){
+    return database.promise().query(`
+        UPDATE budsjettpost
+        SET 
+            tittel = ?,
+            sum = ?,
+            fast = ?
+        WHERE 
+            ID = ?
+    `, [
+        tittel,
+        sum, 
+        fast,
+        budsjettpostID
+    ])
+}
+
 module.exports = {
-    lagNyBudsjettpost
+    lagNyBudsjettpost,
+    slettBudsjettpost,
+    endreBudsjettpost
 }
