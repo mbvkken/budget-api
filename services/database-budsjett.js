@@ -51,14 +51,14 @@ function getBudgetsByEmail(epost) {
     )
   }
 
-  function updateBudget(budsjettID) {
+  function updateBudget(nyTittel,budsjettID ) {
     return database.promise().query(`
       UPDATE budsjett 
       SET
         tittel = ?
       WHERE 
         ID = ?
-    `, [budsjettID])
+    `, [nyTittel,budsjettID])
     .then(([result]) => result[0]);
   };
 

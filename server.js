@@ -131,10 +131,11 @@ app.delete('/budsjett/:budsjettID', async (req, res) => {
     res.send({budsjettID});
 })
 
-app.put('/budsjett/:budsjettID', async (req, res) => {
-    const { nyTittel, budsjettID } = req.body;
-    const nyttBudsjett = await updateBudget(nyTittel, budsjettID);
-    res.send(nyttBudsjett);
+app.put('/budsjett/:ID', async (req, res) => {
+    const {tittel,ID} = req.body;
+    // const {budsjettID} = req.params;
+    const nyttBudsjett = await updateBudget(tittel, ID);
+    res.send({nyttBudsjett});
 })
 
 
@@ -178,17 +179,23 @@ app.get('/kategori/:budsjettID', async (req, res) => {
   });
 
 app.put('/kategori/:kategoriID', async (req, res) => {
-    const { nyTittel, kategoriID } = req.body;
+    const { tittel, kategoriID } = req.body;
     const kategori = await endreKategori(nyTittel, kategoriID);
     res.send(kategori);
 })
 
 app.delete('/kategori/:kategoriID', async (req, res) => {
-    const { kategoriID } = req.body;
+    const { kategoriID } = req.params;
     await slettKategori(kategoriID);
-    res.send(kategoriID);
+    res.send({kategoriID});
 })
 
+
+// app.delete('/budsjett/:budsjettID', async (req, res) => {
+//     const { budsjettID } = req.params;
+//     await deleteBudget(budsjettID);
+//     res.send({budsjettID});
+// })
 app.listen(port, () => {
     console.log(`budget API listening on ${port}`)
 });
