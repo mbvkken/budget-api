@@ -59,7 +59,7 @@ function getBudsjettposter(kategoriID){
     `, [
         kategoriID
     ])
-    .then(([result]) => result[0]);
+    .then((result) => result[0]);
 }
 
 module.exports = {
