@@ -147,7 +147,7 @@ app.post('/budsjettpost', async (req, res) => {
 })
 
 app.delete('/budsjettpost/:budsjettpostID', async (req, res) => {
-    const { budsjettpostID } = req.body;
+    const { budsjettpostID } = req.params;
     await slettBudsjettpost(budsjettpostID);
     res.send(budsjettpostID);
 })
@@ -194,6 +194,8 @@ app.delete('/kategori/:kategoriID', async (req, res) => {
     const { kategoriID } = req.params;
     const kategori = await slettKategori(kategoriID);
     res.send({kategori});
+    await slettKategori(kategoriID);
+    res.send(kategoriID);
 })
 
 
