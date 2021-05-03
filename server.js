@@ -120,9 +120,9 @@ app.get('/budsjett/:epost', async (req, res) => {
   });
 
 app.post('/budsjett', async (req, res) => {
-    const { tittel, epost } = req.body;
-    const newBudget = await createBudget(tittel, epost);
-    res.send(newBudget);
+    const {tittel, epostOwner, noNullEmailArray} = req.body;
+    const newBudget = await createBudget(tittel, epostOwner, noNullEmailArray);
+    res.send({newBudget});
 });  
 
 app.delete('/budsjett/:budsjettID', async (req, res) => {
@@ -131,10 +131,11 @@ app.delete('/budsjett/:budsjettID', async (req, res) => {
     res.send({budsjettID});
 })
 
-app.put('/budsjett/:budsjettID', async (req, res) => {
-    const { nyTittel, budsjettID } = req.body;
-    const nyttBudsjett = await updateBudget(nyTittel, budsjettID);
-    res.send(nyttBudsjett);
+app.put('/budsjett/:ID', async (req, res) => {
+    const {tittel,ID} = req.body;
+    // const {budsjettID} = req.params;
+    const nyttBudsjett = await updateBudget(tittel, ID);
+    res.send({nyttBudsjett});
 })
 
 
@@ -152,8 +153,8 @@ app.delete('/budsjettpost/:budsjettpostID', async (req, res) => {
 })
 
 app.put('/budsjettpost/:budsjettpostID', async (req, res) => {
-    const { nyTittel, nySum, nyFast, budsjettpostID } = req.body;
-    const endretBudsjettpost = await endreBudsjettpost(nyTittel, nySum, nyFast, budsjettpostID);
+    const {tittel, sum, fast, budsjettpostID} = req.body;
+    const endretBudsjettpost = await endreBudsjettpost(tittel, sum, fast, budsjettpostID);
     res.send(endretBudsjettpost);
 })
 
@@ -178,17 +179,31 @@ app.get('/kategori/:budsjettID', async (req, res) => {
   });
 
 app.put('/kategori/:kategoriID', async (req, res) => {
-    const { nyTittel, kategoriID } = req.body;
-    const kategori = await endreKategori(nyTittel, kategoriID);
-    res.send(kategori);
+    const {tittel,kategoriID} = req.body;
+    const kategori = await endreKategori(tittel, kategoriID);
+    res.send({kategori});
+})
+app.put('/budsjett/:ID', async (req, res) => {
+    const {tittel,ID} = req.body;
+    // const {budsjettID} = req.params;
+    const nyttBudsjett = await updateBudget(tittel, ID);
+    res.send({nyttBudsjett});
 })
 
 app.delete('/kategori/:kategoriID', async (req, res) => {
     const { kategoriID } = req.params;
+    const kategori = await slettKategori(kategoriID);
+    res.send({kategori});
     await slettKategori(kategoriID);
     res.send(kategoriID);
 })
 
+
+// app.delete('/budsjett/:budsjettID', async (req, res) => {
+//     const { budsjettID } = req.params;
+//     await deleteBudget(budsjettID);
+//     res.send({budsjettID});
+// })
 app.listen(port, () => {
     console.log(`budget API listening on ${port}`)
 });

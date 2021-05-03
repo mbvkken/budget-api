@@ -29,7 +29,7 @@ function getBudgetsByEmail(epost) {
       ])
   }
   
-  function createBudget(tittel, epost) {
+  function createBudget(tittel, epostOwner, noNullEmailArray) {
     return database.promise().query(`
         INSERT INTO budsjett
             (tittel)
@@ -39,8 +39,11 @@ function getBudgetsByEmail(epost) {
       tittel
     ])
     .then((result) => {
+      noNullEmailArray.forEach(epost => 
         createRelationBudgetUser(result[0].insertId, epost)
-    })
+       ); 
+    }
+    )
   }
 
   function deleteBudget(budsjettID) {
@@ -51,14 +54,14 @@ function getBudgetsByEmail(epost) {
     )
   }
 
-  function updateBudget(budsjettID) {
+  function updateBudget(nyTittel,budsjettID ) {
     return database.promise().query(`
       UPDATE budsjett 
       SET
         tittel = ?
       WHERE 
         ID = ?
-    `, [budsjettID])
+    `, [nyTittel,budsjettID])
     .then(([result]) => result[0]);
   };
 
