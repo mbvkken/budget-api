@@ -34,7 +34,7 @@ const {
 } = require("./services/database-budsjettpost");
 
 const port = process.env.PORT || "3001";
-const secret = "somethingverysecret1234";
+const secret = process.env.SECRET || "somethingverysecret1234";
 
 const app = express();
 
